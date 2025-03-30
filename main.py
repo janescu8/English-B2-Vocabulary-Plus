@@ -128,12 +128,13 @@ if st.session_state.current_index < len(st.session_state.words):
                 except Exception:
                     st.error("⚠️ OpenAI API 請求過於頻繁或配額已用盡，請稍後再試！")
                     st.stop()
-    
+
         st.session_state.input_value = ""
-        time.sleep(2)
-        st.session_state.submitted = False
-        st.session_state.current_index += 1
-        st.rerun()
+
+        if st.button("👉 下一題"):
+            st.session_state.submitted = False
+            st.session_state.current_index += 1
+            st.rerun()
 
 # 測驗結束畫面
 else:
