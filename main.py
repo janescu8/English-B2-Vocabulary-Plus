@@ -2,7 +2,6 @@ import random
 import streamlit as st
 import re
 import os
-import time
 from gtts import gTTS
 from pydub import AudioSegment
 from openai import OpenAI
@@ -87,7 +86,7 @@ if st.session_state.current_index < len(st.session_state.words):
         user_answer = st.text_area("輸入你的句子：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
 
     if st.button("提交答案"):
-        st.session_state.input_value = user_answer  # 🔸 這一行加進來
+        st.session_state.input_value = user_answer
         st.session_state.submitted = True
 
     if st.session_state.submitted:
@@ -99,22 +98,22 @@ if st.session_state.current_index < len(st.session_state.words):
                 st.error(f"❌ 錯誤，正確答案是 {test_word}")
                 play_pronunciation(test_word)
                 st.session_state.mistakes.append((test_word, meaning, example_sentence))
-    
+
         elif test_type == "單字造句":
             if not user_answer.strip():
                 st.warning("請輸入句子")
                 st.stop()
-    
+
             with st.spinner("評分中..."):
                 prompt = f"""請幫我評分以下英文句子，並提供回饋：
-    目標單字：{test_word}
-    使用者造的句子：{user_answer}
-    
-    請提供以下資訊：
-    1. 分數（1～10 分）
-    2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
-    3. 建議修正版句子（如果需要）
-    """
+目標單字：{test_word}
+使用者造的句子：{user_answer}
+
+請提供以下資訊：
+1. 分數（1～10 分）
+2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
+3. 建議修正版句子（如果需要）
+"""
                 try:
                     response = client.chat.completions.create(
                         model="gpt-3.5-turbo",
@@ -124,15 +123,16 @@ if st.session_state.current_index < len(st.session_state.words):
                     st.markdown("### 📝 評分與回饋")
                     st.write(result)
                     st.session_state.score += 1
-                except Exception:
+                except Exception as e:
                     st.error(f"⚠️ 發生錯誤：{e}")
                     st.stop()
-    
-        st.session_state.input_value = ""
-        time.sleep(2)
-        st.session_state.submitted = False
-        st.session_state.current_index += 1
-        st.rerun()
+
+        # 按下「下一題」才會進入下一題
+        if st.button("➡️ 下一題"):
+            st.session_state.input_value = ""
+            st.session_state.submitted = False
+            st.session_state.current_index += 1
+            st.rerun()
 
 # 測驗結束畫面
 else:
