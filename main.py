@@ -51,12 +51,11 @@ def play_pronunciation(text, mp3="pronunciation.mp3", wav="pronunciation.wav"):
 def clean_text(t):
     return re.sub(r'[^a-zA-Z\-’\' ]', '', t).lower().strip()
 
-# 初始化狀態
+# 初始化狀態，只在選書或題數變更時才重新抽題
 if (
     "initialized" not in st.session_state
     or st.session_state.selected_book != selected_book
     or st.session_state.num_questions != num_questions
-    or st.session_state.test_type != test_type
 ):
     st.session_state.words = get_unique_words(num_questions)
     st.session_state.current_index = 0
@@ -64,10 +63,12 @@ if (
     st.session_state.mistakes = []
     st.session_state.submitted = False
     st.session_state.input_value = ""
-    st.session_state.selected_book = selected_book
-    st.session_state.num_questions = num_questions
-    st.session_state.test_type = test_type
     st.session_state.initialized = True
+
+# 每次都更新目前測驗類型（不影響抽題）
+st.session_state.selected_book = selected_book
+st.session_state.num_questions = num_questions
+st.session_state.test_type = test_type
 
 # 顯示題目
 if st.session_state.current_index < len(st.session_state.words):
