@@ -68,7 +68,7 @@ if (
     st.session_state.test_type = test_type
     st.session_state.initialized = True
 
-# 顯示題目
+# 顯示題目# 顯示題目
 if st.session_state.current_index < len(st.session_state.words):
     test_word, meaning, example_sentence = st.session_state.words[st.session_state.current_index]
     st.write(f"🔍 提示：{meaning}")
@@ -76,24 +76,19 @@ if st.session_state.current_index < len(st.session_state.words):
     if st.button("播放發音 🎵"):
         play_pronunciation(test_word if test_type != "填空測試" else example_sentence)
 
-    with st.form(key=f"form_{st.session_state.current_index}"):
-        if test_type == "拼寫測試":
-            user_answer = st.text_input("請輸入單字的正確拼寫：", value=st.session_state.input_value)
-        elif test_type == "填空測試":
-            st.write(f"請填空：{mask_word(example_sentence, test_word)}")
-            user_answer = st.text_input("請填入缺漏的單字：", value=st.session_state.input_value)
-        elif test_type == "單字造句":
-            st.markdown("## ✍️ 請用這個單字造句")
-            user_answer = st.text_area("輸入你的句子：", value=st.session_state.input_value)
+    if test_type == "拼寫測試":
+        user_answer = st.text_input("請輸入單字的正確拼寫：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
+    elif test_type == "填空測試":
+        st.write(f"請填空：{mask_word(example_sentence, test_word)}")
+        user_answer = st.text_input("請填入缺漏的單字：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
+    elif test_type == "單字造句":
+        st.markdown("## ✍️ 請用這個單字造句")
+        user_answer = st.text_area("輸入你的句子：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
 
-        submitted = st.form_submit_button("✅ 提交答案")
-    
-    # 按下提交才會處理答案
-    if submitted:
+    if st.button("提交答案"):
         st.session_state.input_value = user_answer
         st.session_state.submitted = True
 
-    # 顯示答案回饋
     if st.session_state.submitted:
         if test_type in ["拼寫測試", "填空測試"]:
             if clean_text(user_answer) == clean_text(test_word):
@@ -107,9 +102,10 @@ if st.session_state.current_index < len(st.session_state.words):
         elif test_type == "單字造句":
             if not user_answer.strip():
                 st.warning("請輸入句子")
-            else:
-                with st.spinner("評分中..."):
-                    prompt = f"""請幫我評分以下英文句子，並提供回饋：
+                st.stop()
+
+            with st.spinner("評分中..."):
+                prompt = f"""請幫我評分以下英文句子，並提供回饋：
 目標單字：{test_word}
 使用者造的句子：{user_answer}
 
@@ -118,24 +114,25 @@ if st.session_state.current_index < len(st.session_state.words):
 2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
 3. 建議修正版句子（如果需要）
 """
-                    try:
-                        response = client.chat.completions.create(
-                            model="gpt-3.5-turbo",
-                            messages=[{"role": "user", "content": prompt}]
-                        )
-                        result = response.choices[0].message.content
-                        st.markdown("### 📝 評分與回饋")
-                        st.write(result)
-                        st.session_state.score += 1
-                    except Exception as e:
-                        st.error(f"⚠️ 發生錯誤：{e}")
+                try:
+                    response = client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[{"role": "user", "content": prompt}]
+                    )
+                    result = response.choices[0].message.content
+                    st.markdown("### 📝 評分與回饋")
+                    st.write(result)
+                    st.session_state.score += 1
+                except Exception as e:
+                    st.error(f"⚠️ 發生錯誤：{e}")
+                    st.stop()
 
-    # ✅ 必須手動按這個才會切換題目
-    if st.session_state.submitted and st.button("➡️ 下一題"):
-        st.session_state.input_value = ""
-        st.session_state.submitted = False
-        st.session_state.current_index += 1
-        st.rerun()
+        # ✅ 改為手動控制跳下一題
+        if st.button("➡️ 下一題"):
+            st.session_state.input_value = ""
+            st.session_state.submitted = False
+            st.session_state.current_index += 1
+            st.rerun()
 
 # 測驗結束畫面
 else:
@@ -156,3 +153,4 @@ else:
         st.session_state.submitted = False
         st.session_state.input_value = ""
         st.rerun()
+
