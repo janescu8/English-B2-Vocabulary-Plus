@@ -125,7 +125,7 @@ if st.session_state.current_index < len(st.session_state.words):
                     st.write(result)
                     st.session_state.score += 1
                 except Exception:
-                    st.error("⚠️ OpenAI API 請求過於頻繁或配額已用盡，請稍後再試！")
+                    st.error(f"⚠️ 發生錯誤：{e}")
                     st.stop()
     
         st.session_state.input_value = ""
