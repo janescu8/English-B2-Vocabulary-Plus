@@ -83,96 +83,58 @@ if st.session_state.current_index < len(st.session_state.words):
     st.write(f"🔍 提示：{meaning}")
 
     if st.button("播放發音 🎵"):
-        play_pronunciation(test_word if test_type == "拼寫測試" else example_sentence)
+        play_pronunciation(test_word if test_type != "填空測試" else example_sentence)
 
-    # 顯示題目與輸入框
     if test_type == "拼寫測試":
-        user_answer = st.text_input(
-            "請輸入單字的正確拼寫：",
-            value=st.session_state.input_value,
-            key=f"input_{st.session_state.current_index}",
-        )
-    else:
-        st.write(f"請填空：{mask_word(example_sentence, test_word)}")
-        user_answer = st.text_input(
-            "請填入缺漏的單字：",
-            value=st.session_state.input_value,
-            key=f"input_{st.session_state.current_index}",
-        )
+        user_answer = st.text_input("請輸入單字的正確拼寫：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
 
-    if "submitted" not in st.session_state:
-        st.session_state.submitted = False
+    elif test_type == "填空測試":
+        st.write(f"請填空：{mask_word(example_sentence, test_word)}")
+        user_answer = st.text_input("請填入缺漏的單字：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
+
+    elif test_type == "單字造句":
+        st.markdown("## ✍️ 請用這個單字造句")
+        user_answer = st.text_area("輸入你的句子：", value=st.session_state.input_value, key=f"input_{st.session_state.current_index}")
 
     if st.button("提交答案"):
         st.session_state.submitted = True
 
-    # 答案判斷（使用 clean_text）
     if st.session_state.submitted:
-        if clean_text(user_answer) == clean_text(test_word):
-            st.success("✅ 正確！")
-            st.session_state.score += 1
-        else:
-            st.error(f"❌ 錯誤，正確答案是 {test_word}")
-            play_pronunciation(test_word)
-            st.session_state.mistakes.append((test_word, meaning, example_sentence))
-
-        st.session_state.input_value = ""
-        time.sleep(2)
-        st.session_state.submitted = False
-        st.session_state.current_index += 1
-        st.rerun()
-
-# 顯示一個隨機單字
-random_word, meaning, example_sentence = get_unique_words(1)[0]
-st.subheader(f"🎯 今日單字：**{random_word}**")
-st.write(f"中文意思：{meaning}")
-st.write(f"例句：{mask_word(example_sentence, random_word)}")
-
-# 造句功能
-st.markdown("## ✍️ 請用這個單字造句")
-user_sentence = st.text_area("輸入你的句子：")
-
-if st.button("送出並評分"):
-    if not user_sentence.strip():
-        st.warning("請先輸入造句再送出哦！")
-    else:
-        with st.spinner("評分中..."):
-            prompt = f"""請幫我評分以下英文句子，並提供回饋：
-目標單字：{random_word}
-使用者造的句子：{user_sentence}
+        if test_type in ["拼寫測試", "填空測試"]:
+            if clean_text(user_answer) == clean_text(test_word):
+                st.success("✅ 正確！")
+                st.session_state.score += 1
+            else:
+                st.error(f"❌ 錯誤，正確答案是 {test_word}")
+                play_pronunciation(test_word)
+                st.session_state.mistakes.append((test_word, meaning, example_sentence))
+        elif test_type == "單字造句":
+            if not user_answer.strip():
+                st.warning("請輸入句子")
+            else:
+                with st.spinner("評分中..."):
+                    prompt = f"""請幫我評分以下英文句子，並提供回饋：
+目標單字：{test_word}
+使用者造的句子：{user_answer}
 
 請提供以下資訊：
 1. 分數（1～10 分）
 2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
 3. 建議修正版句子（如果需要）
 """
+                    response = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages=[{"role": "user", "content": prompt}]
+                    )
+                    result = response['choices'][0]['message']['content']
+                    st.markdown("### 📝 評分與回饋")
+                    st.write(result)
+                    st.session_state.score += 1  # 成功作答也計分
 
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": prompt}]
-            )
-
-            result = response['choices'][0]['message']['content']
-            st.markdown("### 📝 評分與回饋")
-            st.write(result)
-
-
-# 測驗結束
-else:
-    st.write(f"🎉 測試結束！你的得分：{st.session_state.score}/{len(st.session_state.words)}")
-
-    if st.session_state.mistakes:
-        st.write("❌ 你答錯的單字：")
-        for word, meaning, example in st.session_state.mistakes:
-            st.write(f"**{word}** - {meaning}")
-            st.write(f"例句：{example}")
-            st.write("---")
-
-    if st.button("🔄 重新開始"):
-        st.session_state.words = get_unique_words(num_questions)
-        st.session_state.current_index = 0
-        st.session_state.score = 0
-        st.session_state.mistakes = []
-        st.session_state.submitted = False
+        # 下一題邏輯
         st.session_state.input_value = ""
+        time.sleep(2)
+        st.session_state.submitted = False
+        st.session_state.current_index += 1
         st.rerun()
+
