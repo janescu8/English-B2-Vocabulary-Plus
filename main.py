@@ -138,7 +138,7 @@ if st.session_state.current_index < len(st.session_state.words):
 
 # 測驗結束畫面
 else:
-    st.write(f"🎉 測試結束！你的得分：{st.session_state.score}/{len(st.session_state.words)}")
+    st.write(f"🎉 測試結束！共回答 {len(st.session_state.words)} 題")
 
     if st.session_state.mistakes and test_type != "單字造句":
         st.write("❌ 你答錯的單字：")
