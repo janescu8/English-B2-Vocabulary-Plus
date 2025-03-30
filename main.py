@@ -127,14 +127,14 @@ if st.session_state.current_index < len(st.session_state.words):
 2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
 3. 建議修正版句子（如果需要）
 """
-                    response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
-                        messages=[{"role": "user", "content": prompt}]
-                    )
-                    result = response['choices'][0]['message']['content']
-                    st.markdown("### 📝 評分與回饋")
-                    st.write(result)
-                    st.session_state.score += 1
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    result = response.choices[0].message.content
+    st.markdown("### 📝 評分與回饋")
+    st.write(result)
+    st.session_state.score += 1
 
         st.session_state.input_value = ""
         time.sleep(2)
