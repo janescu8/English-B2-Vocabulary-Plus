@@ -1,1 +1,1 @@
-English B2 Vocabulary APP: https://english-b2-vocabulary-s.streamlit.app/
+English B2 Vocabulary Plus APP: https://english-b2-vocabulary-plus.streamlit.app/
