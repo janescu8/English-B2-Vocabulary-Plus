@@ -5,8 +5,9 @@ import os
 from gtts import gTTS
 import time
 from pydub import AudioSegment
-import openai
-openai.api_key = st.secrets["openai_api_key"]
+from openai import OpenAI
+
+client = OpenAI(api_key=st.secrets["openai_api_key"])
 
 # 匯入所有書籍的單字庫
 from anna_12_4_S2 import word_data as anna_12_4_S2
