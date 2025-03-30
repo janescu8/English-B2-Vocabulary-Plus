@@ -122,6 +122,33 @@ if st.session_state.current_index < len(st.session_state.words):
         st.session_state.current_index += 1
         st.rerun()
 
+# 顯示一個隨機單字
+random_word, meaning, example_sentence = get_unique_words(1)[0]
+st.subheader(f"🎯 今日單字：**{random_word}**")
+st.write(f"中文意思：{meaning}")
+st.write(f"例句：{mask_word(example_sentence, random_word)}")
+
+# 造句功能
+st.markdown("## ✍️ 請用這個單字造句")
+user_sentence = st.text_area("輸入你的句子：")
+
+if st.button("送出並評分"):
+    if not user_sentence.strip():
+        st.warning("請先輸入造句再送出哦！")
+    else:
+        with st.spinner("評分中..."):
+            # GPT API 請求處理...
+
+        prompt = f"""請幫我評分以下英文句子，並提供回饋：
+目標單字：{random_word}
+使用者造的句子：{user_sentence}
+
+請提供以下資訊：
+1. 分數（1～10 分）
+2. 評論：是否文法正確？是否有語意問題？是否正確使用該單字？
+3. 建議修正版句子（如果需要）
+"""
+
 # 測驗結束
 else:
     st.write(f"🎉 測試結束！你的得分：{st.session_state.score}/{len(st.session_state.words)}")
