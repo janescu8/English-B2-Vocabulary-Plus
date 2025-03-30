@@ -136,11 +136,11 @@ if st.session_state.current_index < len(st.session_state.words):
     st.write(result)
     st.session_state.score += 1
 
-        st.session_state.input_value = ""
-        time.sleep(2)
-        st.session_state.submitted = False
-        st.session_state.current_index += 1
-        st.rerun()
+    st.session_state.input_value = ""
+    time.sleep(2)
+    st.session_state.submitted = False
+    st.session_state.current_index += 1
+    st.rerun()
 
 # 測驗結束
 else:
