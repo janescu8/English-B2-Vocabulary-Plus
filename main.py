@@ -139,7 +139,7 @@ if st.button("送出並評分"):
         with st.spinner("評分中..."):
             # GPT API 請求處理...
 
-        prompt = f"""請幫我評分以下英文句子，並提供回饋：
+prompt = f"""請幫我評分以下英文句子，並提供回饋：
 目標單字：{random_word}
 使用者造的句子：{user_sentence}
 
