@@ -14,12 +14,15 @@ client = OpenAI(api_key=st.secrets["openai_api_key"])
 from anna_12_4_S2 import word_data as anna_12_4_S2
 from the_automatic_toaster import word_data as the_automatic_toaster
 from the_rulebreaker_20250402_1 import word_data as the_rulebreaker_20250402_1
+from the_rulebreaker_20250402_2 import word_data as the_rulebreaker_20250402_2
+
 
 # 書籍選單
 book_options = {
     "Your English Five a Day #12.4 S2": anna_12_4_S2,
     "The best invention since sliced bread? - Rachel Yang | the automatic toaster": the_automatic_toaster,
     "The Rulebreaker 20250402 Part1": the_rulebreaker_20250402_1,
+    "The Rulebreaker 20250402 Part2": the_rulebreaker_20250402_2,
 }
 
 # 標題與選書
