@@ -12,10 +12,12 @@ client = OpenAI(api_key=st.secrets["openai_api_key"])
 
 # 匯入單字庫（你自己的字典）
 from anna_12_4_S2 import word_data as anna_12_4_S2
+from anna_14_5_S2 import word_data as anna_14_5_S2
 
 # 書籍選單
 book_options = {
     "Your English Five a Day #12.4 S2": anna_12_4_S2,
+    "Your English Five a Day #14.5 S2": anna_14_5_S2,
 }
 
 # 標題與選書
