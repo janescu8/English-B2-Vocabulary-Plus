@@ -23,5 +23,7 @@ word_data = {
     "sagely": ("睿智地；賢明地", "She nodded sagely, as if she had seen it all before."),
     "give and take": ("互相讓步；交流", "A healthy relationship involves a lot of give and take."),
     "frame it": ("表達；構思（某事的方式）", "Try to frame it in a more positive light."),
+    "gentle patter": ("輕柔的啪嗒聲", "The gentle patter of rain on the roof lulled her to sleep."),
+    "receptive": ("樂於接受的；易於接受的", "He was very receptive to new ideas and suggestions."),
+    "elixir": ("靈藥；萬靈藥", "Many believed the ancient elixir could grant eternal youth."),
 }
-
