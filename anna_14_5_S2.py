@@ -26,4 +26,6 @@ word_data = {
     "gentle patter": ("輕柔的啪嗒聲", "The gentle patter of rain on the roof lulled her to sleep."),
     "receptive": ("樂於接受的；易於接受的", "He was very receptive to new ideas and suggestions."),
     "elixir": ("靈藥；萬靈藥", "Many believed the ancient elixir could grant eternal youth."),
+    "effervescent": ("充滿活力的；興高采烈的；（液體）冒泡的", "Her effervescent personality made everyone around her smile."),
 }
+
