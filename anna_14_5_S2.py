@@ -10,4 +10,13 @@ word_data = {
     "glistening": ("閃閃發亮的；濕潤光亮的", "The leaves were glistening with dew."),
     "horrid": ("可怕的；令人不快的", "What a horrid smell!"),
     "droplet": ("小滴（液體）", "A droplet of water ran down the windowpane."),
+    "chalkboard": ("黑板", "The teacher wrote today's lesson on the chalkboard."),
+    "prop up": ("支撐；支持", "They used books to prop up the broken shelf."),
+    "a dark blend": ("一種深色混合物（常指飲料或顏色）", "She sipped a dark blend of coffee that smelled rich and earthy."),
+    "invigorate": ("使有活力；使振奮", "A morning jog can invigorate the body and mind."),
+    "herbal remedy": ("草本療法；草藥療方", "She took an herbal remedy to help her sleep."),
+    "citrus": ("柑橘類水果", "Citrus fruits like oranges and lemons are rich in vitamin C."),
+    "miniature": ("微型的；小型模型", "He collects miniature cars from around the world."),
+    "whimsical": ("異想天開的；古怪有趣的", "The whimsical garden was filled with fairy lights and tiny doors."),
+    "dwarf": ("矮人；使變小", "In mythology, a dwarf is often portrayed as a skilled craftsman."),
 }
