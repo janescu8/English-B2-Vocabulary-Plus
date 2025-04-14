@@ -19,4 +19,9 @@ word_data = {
     "miniature": ("微型的；小型模型", "He collects miniature cars from around the world."),
     "whimsical": ("異想天開的；古怪有趣的", "The whimsical garden was filled with fairy lights and tiny doors."),
     "dwarf": ("矮人；使變小", "In mythology, a dwarf is often portrayed as a skilled craftsman."),
+    "amber color": ("琥珀色", "The tea had a warm amber color that looked inviting."),
+    "sagely": ("睿智地；賢明地", "She nodded sagely, as if she had seen it all before."),
+    "give and take": ("互相讓步；交流", "A healthy relationship involves a lot of give and take."),
+    "frame it": ("表達；構思（某事的方式）", "Try to frame it in a more positive light."),
 }
+
