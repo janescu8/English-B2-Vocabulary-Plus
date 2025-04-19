@@ -10,4 +10,14 @@ word_data = {
     "polished stone": ("打磨過的石頭；光滑的石頭", "He picked up a polished stone from the riverbank."),
     "shimmer": ("閃爍；微光", "The surface of the lake began to shimmer under the moonlight."),
     "worn carving": ("磨損的雕刻", "The ancient temple featured a worn carving of a lion."),
+    "wiry": ("瘦而結實的；金屬絲般的", "He had a wiry frame and quick movements."),
+    "buzz cut": ("平頭；極短的髮型", "He got a buzz cut for the summer."),
+    "trinket": ("小裝飾品；廉價飾品", "She bought a trinket at the souvenir shop."),
+    "nag": ("嘮叨；不斷批評或抱怨", "Stop nagging me about my homework!"),
+    "tact": ("圓滑；機智；得體", "She handled the sensitive topic with great tact."),
+    "damp flat": ("潮濕的公寓", "They moved out of the damp flat due to mold."),
+    "inevitable": ("無可避免的；必然發生的", "Change is inevitable in life."),
+    "a head on your shoulders": ("頭腦清楚；明智", "She’s only sixteen but has a good head on her shoulders."),
+    "on a whim": ("一時衝動；心血來潮", "He bought the guitar on a whim."),
 }
+
