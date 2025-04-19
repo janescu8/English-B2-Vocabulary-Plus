@@ -19,5 +19,10 @@ word_data = {
     "inevitable": ("無可避免的；必然發生的", "Change is inevitable in life."),
     "a head on your shoulders": ("頭腦清楚；明智", "She’s only sixteen but has a good head on her shoulders."),
     "on a whim": ("一時衝動；心血來潮", "He bought the guitar on a whim."),
+    "buzz with": ("充滿（活力、興奮等）", "The room buzzed with excitement before the concert started."),
+    "cramped": ("擁擠的；狹小的", "We stayed in a cramped apartment during our trip."),
+    "get carried away": ("情緒失控；太過投入而失去控制", "Don’t get carried away with the decorations — we still have a budget!"),
+    "gull": ("易受騙的人；欺騙；海鷗", "He was gulled into buying a fake watch."),
+    "pedestal": ("基座；（崇高的）地位", "Don’t put her on a pedestal — she’s human too."),
 }
 
